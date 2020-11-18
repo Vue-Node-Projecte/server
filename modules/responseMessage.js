@@ -22,4 +22,11 @@ module.exports={
   
     /* 서버에러 */
     INTERNAL_SERVER_ERROR: "서버 내부 오류",
+
+    /* 수업제작 */
+    COURSEMAKE_CONTENTS_SUCCESS:"수업제작 컨텐츠만들기 성공",
+    COURSEMAKE_WORD_SUCCESS:"수업제작 단어만들기 성공",
+    COURSEMAKE_SENTENCE_SUCCESS:"수업제작 문장만들기 성공",
+    COURSEMAKE_SYNC_SUCCESS:"수업제작 싱크맞추기 성공",
+    COURSEMAKE_QUESTION_SUCCESS:"수업제작 문제만들기 성공",
 }
