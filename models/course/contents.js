@@ -1,14 +1,14 @@
 module.exports=function async(sequelize,DataTypes){
     return sequelize.define('Contents',{
-        ContentsTitle:{
+        contentsTitle:{
             type:DataTypes.STRING(50),
             allowNull:false
         },
-        Url:{
+        url:{
             type:DataTypes.STRING(200),
             allowNull:false
         },
-        SongInfo:{
+        songInfo:{
             type:DataTypes.STRING(200),
             allowNull:false
         }

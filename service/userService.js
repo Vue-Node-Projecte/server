@@ -8,7 +8,6 @@ module.exports={
                     email:email
                 },
             })
-            console.log('alreadyEmail : ',alreadyEmail)
             return alreadyEmail
         }catch(err){
             throw err

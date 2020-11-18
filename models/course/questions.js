@@ -1,22 +1,22 @@
 module.exports=function async(sequelize,DataTypes){
     return sequelize.define('Questions',{
-        QuestionTitle:{
+        questionTitle:{
             type:DataTypes.STRING(500),
             allowNull:false
         },
-        QuestionText:{
+        questionText:{
             type:DataTypes.STRING(1000),
             allowNull:true
         },
-        QuestionImg:{
+        questionImg:{
             type:DataTypes.STRING(500),
             allowNull:true
         },
-        QuestionAnswer:{
+        questionAnswer:{
             type:DataTypes.INTEGER,
             allowNull:false
         },
-        MultiChoice:{
+        multiChoice:{
            type:DataTypes.STRING,
            get:function(){
                return JSON.parse(this.getDataValue('MultiChoice'))
@@ -26,7 +26,7 @@ module.exports=function async(sequelize,DataTypes){
            },
            allowNull:false
         },
-        Commentary:{
+        commentary:{
             type:DataTypes.TEXT,
             allowNull:true
         }

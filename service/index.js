@@ -1,3 +1,4 @@
 module.exports={
-    userService:require('./userService')
+    userService:require('./userService'),
+    courseService:require('./courseService')
 }
