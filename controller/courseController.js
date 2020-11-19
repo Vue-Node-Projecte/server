@@ -14,7 +14,7 @@ module.exports = {
             if(!await authorityValidation(token)){
                 return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED,responseMessage.UNAUTHORIZED))
             }
-            const contents = await courseService.createContents(url,contentsTitle,songInfo)
+            const contents = await courseService.createContents(url,contentsTitle,songInfo,category)
             return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COURSEMAKE_CONTENTS_SUCCESS, contents))
         } catch (err) {
             errorReturn(err,res)

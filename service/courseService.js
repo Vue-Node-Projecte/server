@@ -1,9 +1,11 @@
 const {Courses,Contents,Words,Sentences,Syncs,Questions} = require('../models')
-
+const categoryService = require('./categoryService')
 module.exports={
-    createContents:async(url,contentsTitle,songInfo)=>{
+    createContents:async(url,contentsTitle,songInfo,category)=>{
+        const categories = await categoryService.findCategoryById(category)
         const course = await Courses.create()
         const contents = await Contents.create({CourseId:course.dataValues.id,url,songInfo,contentsTitle})
+        await contents.addCategories(categories)
         return contents
     },
     createWords:async(eng,kor,courseId)=>{
