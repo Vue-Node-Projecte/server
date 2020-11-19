@@ -75,7 +75,10 @@ module.exports = {
         })
         try{
             parseBodyQuestion.map(async(v,i)=>{
-                var questionImg = req.files[i].location
+                var questionImg=null
+                if(req.files.length<0){
+                    questionImg = req.files[i].location
+                }
                 console.log('questionImg:',questionImg)
                 await courseService.createQuestions(v.questionTitle,v.questionText,questionImg,v.questionAnswer,v.multiChoice,v.commentary,v.courseId)
             })

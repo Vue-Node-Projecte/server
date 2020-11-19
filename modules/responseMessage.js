@@ -30,4 +30,10 @@ module.exports={
     COURSEMAKE_SENTENCE_SUCCESS:"수업제작 문장만들기 성공",
     COURSEMAKE_SYNC_SUCCESS:"수업제작 싱크맞추기 성공",
     COURSEMAKE_QUESTION_SUCCESS:"수업제작 문제만들기 성공",
+
+    /*카테고리 */
+    CATEGORY_CREATE_SUCCESS:"카테고리 생성",
+    CATEGORY_CREATE_FAIL:"카테고리 생성 실패",
+    CATEGORY_FIND_SUCCESS:"카테고리 찾기 성공",
+    CATEGORY_FIND_FAIL:"카테고리 찾기 실패"
 }
