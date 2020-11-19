@@ -22,8 +22,11 @@ module.exports={
         const sync = await Syncs.create({CourseId:courseId,SentenceId:sentence.id,start,end})
         return sync
     },
-    createQuestions:async()=>{
-
+    createQuestions:async(questionTitle,questionText,questionImg,questionAnswer,multiChoice,commentary,courseId)=>{
+        courseValidation(courseId)
+        const question = await Questions.create({questionTitle,questionText,questionImg,questionAnswer,multiChoice,commentary,CourseId:courseId})
+        console.log('question:',question)
+        return question
     },
     findWords:async(courseId)=>{
         const word = await Sentences.findOne({where:{CourseId:courseId}})

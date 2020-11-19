@@ -66,7 +66,23 @@ module.exports = {
         }
     },
     makeQuestions: async (req, res) => {
-
+        const parseBodyQuestion = JSON.parse(req.body.question)//프론트와 통신할때는 json형식으로 들어올테니 json.parse제거해주고 한다.
+        parseBodyQuestion.map((v)=>{
+            var {questionTitle,questionText,questionAnswer,multiChoice,commentary,courseId} = v
+            if(!questionTitle || !questionAnswer || !multiChoice || !courseId){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
+            }
+        })
+        try{
+            parseBodyQuestion.map(async(v,i)=>{
+                var questionImg = req.files[i].location
+                console.log('questionImg:',questionImg)
+                await courseService.createQuestions(v.questionTitle,v.questionText,questionImg,v.questionAnswer,v.multiChoice,v.commentary,v.courseId)
+            })
+            res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.COURSEMAKE_QUESTION_SUCCESS))
+        }catch(err){
+            errorReturn(err,res)
+        }
     },
 
     ////////////////////////

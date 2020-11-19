@@ -13,16 +13,22 @@ module.exports=function async(sequelize,DataTypes){
             allowNull:true
         },
         questionAnswer:{
-            type:DataTypes.INTEGER,
-            allowNull:false
+            type:DataTypes.STRING,
+           get:function(){
+               return JSON.parse(this.getDataValue('questionAnswer'))
+           },
+           set:function(val){
+               return this.setDataValue('questionAnswer',JSON.stringify(val))
+           },
+           allowNull:false
         },
         multiChoice:{
            type:DataTypes.STRING,
            get:function(){
-               return JSON.parse(this.getDataValue('MultiChoice'))
+               return JSON.parse(this.getDataValue('multiChoice'))
            },
            set:function(val){
-               return this.setDataValue('MultiChoice',JSON.stringify(val))
+               return this.setDataValue('multiChoice',JSON.stringify(val))
            },
            allowNull:false
         },
