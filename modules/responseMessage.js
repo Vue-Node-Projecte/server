@@ -35,5 +35,16 @@ module.exports={
     CATEGORY_CREATE_SUCCESS:"카테고리 생성",
     CATEGORY_CREATE_FAIL:"카테고리 생성 실패",
     CATEGORY_FIND_SUCCESS:"카테고리 찾기 성공",
-    CATEGORY_FIND_FAIL:"카테고리 찾기 실패"
+    CATEGORY_FIND_FAIL:"카테고리 찾기 실패",
+
+      /* 토큰 */
+  EMPTY_TOKEN: '토큰 값이 없습니다.',
+  EXPIRED_TOKEN: '토큰 값이 만료되었습니다.',
+  INVALID_TOKEN: '유효하지 않은 토큰값입니다.',
+  AUTH_SUCCESS: '인증에 성공했습니다.',
+  ISSUE_SUCCESS: '새로운 토큰이 생성되었습니다.',
+
+  /*권한 */
+  CAN_ACCESS_TEACHER : '선생님만 접근할수 있습니다',
+  CAN_ACCESS_STUDENT : '학생만 접근할수 있습니다.'
 }

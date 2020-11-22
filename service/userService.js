@@ -51,5 +51,18 @@ module.exports={
         }catch(err){
             throw err
         }
+    },
+    readOneById:async(id)=>{
+        try{
+            const alreadyUser = await Users.findByPk(id)
+            if(!alreadyUser){
+                var newError = new Error("존재하지 않는 사용자입니다.")
+                newError.name = "NotExistUser"
+                throw newError
+            }
+            return alreadyUser
+        }catch(err){
+            throw err
+        }
     }
 }

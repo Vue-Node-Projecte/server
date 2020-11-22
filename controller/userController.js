@@ -3,7 +3,7 @@ const util = require('../modules/util')
 const responseMessage = require('../modules/responseMessage')
 const statusCode = require('../modules/statusCode')
 const {userService} = require('../service')
-const jwtModules =require('../modules/jwt')
+const jwt =require('../modules/jwt')
 module.exports={
     registration:async(req,res)=>{
         const {name, authority, organizationId,email,password,grade,classroom,number} = req.body;
@@ -37,8 +37,8 @@ module.exports={
             if(user == null){
                 return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NO_USER))
             }
-            let token = await jwtModules.createToken(email,user.dataValues.authority)
-            res.cookie("userToken",token)
+            let token = await jwt.sign(user)
+            res.cookie("userToken",token.accessToken)
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.SIGN_IN_SUCCESS,user))
         }catch(err){
             console.log(err)

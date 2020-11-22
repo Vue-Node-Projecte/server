@@ -1,25 +1,36 @@
 const jwt = require('jsonwebtoken')
-const secretObj = require('../config/jwt')
+const {secretKey,options,refreshOptions} = require('../config/jwt')
+const TOKEN_EXPIRED = -3;
+const TOKEN_INVALID = -2;
 module.exports = {
-    tokenCheck: async (req) => {
-        let token = req.cookies.userToken;
-        let decoded = jwt.verify(token, secretObj.secret);
-        if (decoded) {
-            console.log('jwt decoded !!!!!!!!!!!!!!!!!!:', decoded)
-            return decoded
-        } else {
-            return false
+    sign: async (user) => {
+        const payload={
+            id:user.id,
+            name:user.name,
+            authority:user.authority
         }
+        const result={
+            accessToken : jwt.sign(payload,secretKey,options),
+            refreshToken : jwt.sign(payload,secretKey,refreshOptions)
+        }
+        return result
     },
-    createToken: async (email, authority) => {
-        return await jwt.sign({
-                email: email,
-                authority: authority
-            },
-            secretObj.secret, {
-                expiresIn: '60m'
-            })
+    verify:async(token)=>{
+        let decoded;
+        try{
+            decoded = await jwt.verify(token,secretKey)
+        }catch(err){
+            if(err.name ==='jwt expired'){
+                console.log('expired token')
+                return TOKEN_EXPIRED
+            }else if(err.name === 'invalid token'){
+                console.log('invalid token')
+                return TOKEN_INVALID
+            }else{
+                console.log('invalid token')
+                return TOKEN_INVALID
+            }
+        }
+        return decoded
     }
 }
-
-// let test = await jwtModules.tokenCheck(req); 

@@ -1,19 +1,18 @@
 const util = require('../modules/util')
 const statusCode = require('../modules/statusCode')
 const responseMessage = require('../modules/responseMessage')
-const jwtModules = require('../modules/jwt')
 const courseService = require('../service/courseService')
+const userService = require('../service/userService')
 module.exports = {
     makeContents: async (req,res) => {
+        const {id} = req.decoded;
+        console.log(`id:${id}, authority:${authority}`)
         const {category,url,contentsTitle,songInfo} = req.body;
         if(!category || !url || !contentsTitle || !songInfo){
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
         }
         try {
-            let token = await jwtModules.tokenCheck(req, res)
-            if(!await authorityValidation(token)){
-                return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED,responseMessage.UNAUTHORIZED))
-            }
+            await userService.readOneById(id)
             const contents = await courseService.createContents(url,contentsTitle,songInfo,category)
             return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COURSEMAKE_CONTENTS_SUCCESS, contents))
         } catch (err) {
@@ -26,10 +25,6 @@ module.exports = {
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
         }
         try{
-            let token = await jwtModules.tokenCheck(req, res)
-            if(!await authorityValidation(token)){
-                return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED,responseMessage.UNAUTHORIZED))
-            }
             const word = await courseService.createWords(eng,kor,courseId)
             console.log('test!',typeof word.dataValues.eng)
             return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COURSEMAKE_CONTENTS_SUCCESS, word))
@@ -43,10 +38,6 @@ module.exports = {
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
         }
         try{
-            let token = await jwtModules.tokenCheck(req, res)
-            if(!await authorityValidation(token)){
-                return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED,responseMessage.UNAUTHORIZED))
-            }
             const sentence = await courseService.createSentences(eng,kor,courseId)
             return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COURSEMAKE_SENTENCE_SUCCESS, sentence))
         }catch(err){
@@ -102,30 +93,9 @@ module.exports = {
         var newDate = new Date(sampletime.getFullYear().toString(),sampletime.getDate().toString(),sampletime.getDay().toString(),hh,mm,ss,ms)
         console.log(newDate)
         return res.send(newDate)
-        // try{
-        //     let token = await jwtModules.tokenCheck(req, res)
-        //     if(!await authorityValidation(token)){
-        //         return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED,responseMessage.UNAUTHORIZED))
-        //     }
-        //     const word = await courseService.findWords(courseId)
-        //     console.log('!!!',word.eng[0])
-        //     return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COURSEMAKE_CONTENTS_SUCCESS, word))
-        // }catch(err){
-        //     console.log('error!!!!!!!!!!!!!!!',err)
-        //     console.log('@@@@@',err.name)
-        //     errorReturn(err,res)
-        // }
+
     }
     ///////////////////////////
-}
-
-const authorityValidation = async(token)=>{
-    let authority = token.authority
-    if(authority === 1){
-        return true
-    }else{
-        return false
-    }
 }
 
 const errorReturn= (err,res) =>{
@@ -133,7 +103,11 @@ const errorReturn= (err,res) =>{
         return res.status(statusCode.UNAUTHORIZED).send(util.fail(statusCode.UNAUTHORIZED, responseMessage.UNAUTHORIZED))
     }else if(err.name=='NoContent'){
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message))
-    } 
+    } else if(err.name =='NotExistUser'){
+        return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message))
+    }else if(err.name =='NoTeacher'){
+        return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message))
+    }
     else {
         return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR))
     }
