@@ -46,5 +46,9 @@ module.exports={
 
   /*권한 */
   CAN_ACCESS_TEACHER : '선생님만 접근할수 있습니다',
-  CAN_ACCESS_STUDENT : '학생만 접근할수 있습니다.'
+  CAN_ACCESS_STUDENT : '학생만 접근할수 있습니다.',
+
+  /*기관 */
+  ORGANIZATION_FIND_SUCCESS : "기관찾기 성공",
+  ORGANIZATION_FIND_FAIL:"기관찾기 실패"
 }
