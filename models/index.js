@@ -20,6 +20,7 @@ db.Sentences=require('./course/sentences')(sequelize,Sequelize)
 db.Syncs=require('./course/syncs')(sequelize,Sequelize)
 db.Questions=require('./course/questions')(sequelize,Sequelize)
 db.Categories=require('./categories')(sequelize,Sequelize)
+db.Playlists=require('./playlists')(sequelize,Sequelize)
 
 /*N:M Users:Organizations*/
 db.Users.belongsToMany(db.Organizations,{through:'Affiliations',as:'affiliationed'})
@@ -41,5 +42,9 @@ db.Syncs.belongsTo(db.Sentences)
 
 /** N:M Contents:Categories*/
 db.Contents.belongsToMany(db.Categories,{through:'CategoryList',foreignKey:'ContentId',otherKey:'CategoryId'})
+
+/**N:M Playlists:Courses */
+db.Playlists.belongsToMany(db.Contents,{through:'BoardList',foreignKey:'PlaylistId'})
+db.Contents.belongsToMany(db.Playlists,{through:'BoardList',foreignKey:'ContentsId'})
 
 module.exports = db;

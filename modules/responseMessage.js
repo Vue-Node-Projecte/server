@@ -50,5 +50,16 @@ module.exports={
 
   /*기관 */
   ORGANIZATION_FIND_SUCCESS : "기관찾기 성공",
-  ORGANIZATION_FIND_FAIL:"기관찾기 실패"
+  ORGANIZATION_FIND_FAIL:"기관찾기 실패",
+
+  /*플레이리스트 */
+  PLAYLIST_CREATE_SUCCESS : "플레이리스트 생성 성공",
+  PLAYLIST_CREATE_FAIL:"플레이리스트 생성 실패",
+  PLAYLIST_ADDITIONAL_SUCCESS:"플레이리스트 추가 성공",
+  PLAYLIST_ADDITIONAL_FAIL:"플레이리스트 추가 실패",
+  PLAYLIST_MODIFY_SUCCESS:"플레이리스트 수정 성공 ",
+  PLAYLIST_MODIFY_FAIL:"플레이리스트 수정 실패",
+  PLAYLIST_DELETE_SUCCESS:"플레이리스트 삭제 성공",
+  PLAYLIST_DELETE_FAIL:"플레이리스트 삭제 실패",
+
 }

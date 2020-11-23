@@ -5,6 +5,7 @@ router.use('/organizations',require('./organization'))
 router.use('/user',require('./user'))
 router.use('/course',require('./course'))
 router.use('/category',require('./category'))
+router.use('/playlist',require('./playlist'))
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

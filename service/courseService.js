@@ -38,6 +38,16 @@ module.exports={
             throw error
         }
         return word
+    },
+    findOneContentsByPk:async(contentsId)=>{
+        const contents = await Contents.findOne({where:{id:contentsId}})
+        console.log('courseService:',contents.dataValues)
+        if(!contents){
+            var error = new Error("해당 컨텐츠가 없습니다.")
+            error.name = "NoContent"
+            throw error
+        }
+        return contents 
     }
 }
 
