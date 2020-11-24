@@ -23,15 +23,6 @@ module.exports={
         const playlist = await Playlists.findAll({where:{title:{[Op.like]:`%${keyword}%`}}})
         return playlist
     },
-    readAllByCategory:async()=>{
-
-    },
-    readAllByPlaylist:async()=>{
-
-    },
-    readOnePlaylist:async()=>{
-        
-    },
     readOneByPk:async(id)=>{
         const playlist = await Playlists.findByPk(id)
         if(playlist === null){
@@ -81,6 +72,10 @@ module.exports={
     },
     dashboardPlaylist:async()=>{
         return await Playlists.findAll({order:[['sequence','ASC']],attributes:{exclude:['createdAt','updatedAt']},include:[{model:Contents,attributes:['id','contentsTitle','url','songInfo','CourseId']}]})
+    },
+    moreViewPlaylist:async(playlistId)=>{
+        const contents = await Playlists.findOne({where:{id:playlistId},include:[{model:Contents,attributes:{exclude:['createdAt','updatedAt']},through:{attributes:[]}}]})
+        return contents.Contents
     }
 }
 const configSequence=async()=>{

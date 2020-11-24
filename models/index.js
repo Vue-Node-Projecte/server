@@ -41,7 +41,8 @@ db.Sentences.hasOne(db.Syncs,{onDelete:'cascade'})
 db.Syncs.belongsTo(db.Sentences)
 
 /** N:M Contents:Categories*/
-db.Contents.belongsToMany(db.Categories,{through:'CategoryList',foreignKey:'ContentId',otherKey:'CategoryId'})
+db.Contents.belongsToMany(db.Categories,{through:'CategoryList',foreignKey:'ContentId'})
+db.Categories.belongsToMany(db.Contents,{through:'CategoryList',foreignKey:'CategoryId'})
 
 /**N:M Playlists:Courses */
 db.Playlists.belongsToMany(db.Contents,{through:'BoardList',foreignKey:'PlaylistId'})

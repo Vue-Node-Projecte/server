@@ -62,6 +62,9 @@ module.exports={
   PLAYLIST_DELETE_SUCCESS:"플레이리스트 삭제 성공",
   PLAYLIST_DELETE_FAIL:"플레이리스트 삭제 실패",
   PLAYLIST_GET_SUCCESS:"플레이리스트 보드 보내기 성공",
-  PLAYLIST_GET_FAIL:"플레이리스트 보드 보내기 실패"
+  PLAYLIST_GET_FAIL:"플레이리스트 보드 보내기 실패",
 
+  /**컨텐츠 */
+  CONTENTS_KEYWORD_FAIL:"키워드가 없습니다",
+  CONTENTS_SEARCH_SUCCESS:"컨텐츠 검색을 완료했습니다."
 }
