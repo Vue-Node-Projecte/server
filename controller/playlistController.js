@@ -23,8 +23,6 @@ module.exports={
     additional:async(req,res)=>{
         const {playlistId} = req.params
         const {contents} = req.body
-        console.log('playlistid : ',playlistId)
-        console.log('contentsArray : ',contents)
         if(!contents){
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.BAD_REQUEST))
         } 
@@ -34,19 +32,28 @@ module.exports={
             contents.map(async(v)=>{
                 await playlistService.setBoardList(thisPlaylist,v)
             })
-            const boardlist = await playlistService.getBoardList(thisPlaylist)
-            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.PLAYLIST_ADDITIONAL_SUCCESS,boardlist))
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.PLAYLIST_ADDITIONAL_SUCCESS))
         }catch(err){
             errReturn(err,res)
         }
     },
     modify:async(req,res)=>{
-
+        const {playlistId} = req.params
+        const {title,sequence} = req.body
+        if(!title){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.BAD_REQUEST))
+        }
+        try{
+            const updatePlaylist = await playlistService.modify(playlistId,title,sequence) 
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.PLAYLIST_MODIFY_SUCCESS,updatePlaylist))
+        }catch(err){
+            errReturn(err,res)
+        }
     },
     delete:async(req,res)=>{
-        const {playlistId,contentsId} = req.params
+        const {playlistId} = req.params
         try{
-            await playlistService.deleteContents(playlistId,contentsId)
+            await playlistService.deleteContents(playlistId)
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.PLAYLIST_DELETE_SUCCESS))
         }catch(err){
             errReturn(err,res)

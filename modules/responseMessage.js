@@ -61,5 +61,7 @@ module.exports={
   PLAYLIST_MODIFY_FAIL:"플레이리스트 수정 실패",
   PLAYLIST_DELETE_SUCCESS:"플레이리스트 삭제 성공",
   PLAYLIST_DELETE_FAIL:"플레이리스트 삭제 실패",
+  PLAYLIST_GET_SUCCESS:"플레이리스트 보드 보내기 성공",
+  PLAYLIST_GET_FAIL:"플레이리스트 보드 보내기 실패"
 
 }

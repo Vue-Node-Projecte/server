@@ -38,7 +38,7 @@ module.exports={
                 return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NO_USER))
             }
             let token = await jwt.sign(user)
-            res.cookie("userToken",token.accessToken)
+            res.cookie("token",token.accessToken)
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.SIGN_IN_SUCCESS,user))
         }catch(err){
             console.log(err)
