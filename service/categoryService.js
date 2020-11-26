@@ -23,5 +23,8 @@ module.exports={
             throw newError
         }
         return category
+    },
+    deleteCategory:async(categoryId)=>{
+        await Categories.destroy({where:{id:categoryId}})
     }
 }

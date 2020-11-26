@@ -231,12 +231,20 @@ module.exports = {
                         throw newError
                     }
                 }
-                // console.log(`${v.questionTitle}의 텍스트 ${v.questionText}, 이미지 ${questionImg}`)
                 await courseService.updateQuestion(v.questionId,v.questionTitle,questionImg,v.questionText,v.questionAnswer,v.multiChoice,v.commentary)
             })
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.QUESTION_UPDATE_SUCCESS))
         } catch (err) {
             errorReturn(err, res)
+        }
+    },
+    deleteCourse:async(req,res)=>{
+        const {courseId} = req.params
+        try{
+            await courseService.deleteCourse(courseId)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.COURSE_DELETE_SUCCESS))
+        }catch(err){
+            errorReturn(err,res)
         }
     },
     ////////////////////////

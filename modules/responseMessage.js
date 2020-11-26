@@ -30,7 +30,9 @@ module.exports={
     COURSEMAKE_SENTENCE_SUCCESS:"수업제작 문장만들기 성공",
     COURSEMAKE_SYNC_SUCCESS:"수업제작 싱크맞추기 성공",
     COURSEMAKE_QUESTION_SUCCESS:"수업제작 문제만들기 성공",
+    COURSE_DELETE_SUCCESS:"수업 삭제 성공",
     CONTENTS_UPDATE_SUCCESS:"컨텐츠 수정 성공",
+    CONTENTS_DELETE_SUCCESS:"컨텐츠 삭제 성공",
     WORD_UPDATE_SUCCESS:"단어 수정 성공",
     WORD_UPDATE_FAIL:"단어 수정 실패",
     SENTENCE_UPDATE_SUCCESS:"문장 수정 성공",
@@ -45,6 +47,7 @@ module.exports={
     CATEGORY_CREATE_FAIL:"카테고리 생성 실패",
     CATEGORY_FIND_SUCCESS:"카테고리 찾기 성공",
     CATEGORY_FIND_FAIL:"카테고리 찾기 실패",
+    CATEGORY_DELETE_SUCCESS:"카테고리삭제 성공",
 
       /* 토큰 */
   EMPTY_TOKEN: '토큰 값이 없습니다.',

@@ -23,6 +23,15 @@ module.exports={
         }catch(err){
             errorReturn(err,res)
         }
+    },
+    deleteCategory:async(req,res)=>{
+        const {categoryId} = req.params
+        try{
+            await categoryService.deleteCategory(categoryId)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.CATEGORY_DELETE_SUCCESS))
+        }catch(err){
+            errorReturn(err,res)
+        }
     }
 }
 

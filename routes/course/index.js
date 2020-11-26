@@ -19,5 +19,6 @@ router.put('/word/:wordId',authUtil.checkTeacherToken,courseController.updateWor
 router.put('/sentence/:sentenceId',authUtil.checkTeacherToken,courseController.updateSentence)
 router.put('/sync/:syncId',authUtil.checkTeacherToken,courseController.updateSync)
 router.put('/question',authUtil.checkTeacherToken,upload.array('questionImg'),courseController.updateQuestion)
+router.delete('/:courseId',authUtil.checkTeacherToken,courseController.deleteCourse)
 
 module.exports=router

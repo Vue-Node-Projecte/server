@@ -115,6 +115,9 @@ module.exports={
             newError = "NoRow"
             throw newError
         }
+    },
+    deleteCourse:async(courseId)=>{
+        await Courses.destroy({where:{id:courseId}})
     }
 }
 

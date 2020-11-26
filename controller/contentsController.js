@@ -33,7 +33,7 @@ module.exports={
         }catch(err){
             errReturn(err,res)
         }
-    }
+    },
 }
 const errReturn=(err,res)=>{
     return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,err.message))
