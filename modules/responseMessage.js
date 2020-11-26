@@ -30,6 +30,15 @@ module.exports={
     COURSEMAKE_SENTENCE_SUCCESS:"수업제작 문장만들기 성공",
     COURSEMAKE_SYNC_SUCCESS:"수업제작 싱크맞추기 성공",
     COURSEMAKE_QUESTION_SUCCESS:"수업제작 문제만들기 성공",
+    CONTENTS_UPDATE_SUCCESS:"컨텐츠 수정 성공",
+    WORD_UPDATE_SUCCESS:"단어 수정 성공",
+    WORD_UPDATE_FAIL:"단어 수정 실패",
+    SENTENCE_UPDATE_SUCCESS:"문장 수정 성공",
+    SENTENCE_UPDATE_FAIL:"문장 수정 실패",
+    SYNC_UPDATE_SUCCESS:"싱크 수정 성공",
+    SYNC_UPDATE_FAIL:"싱크 수정 실패",
+    QUESTION_UPDATE_SUCCESS:"문제 수정 성공",
+    QUESTION_UPDATE_FAIL:"문제 수정 실패",
 
     /*카테고리 */
     CATEGORY_CREATE_SUCCESS:"카테고리 생성",
@@ -67,4 +76,5 @@ module.exports={
   /**컨텐츠 */
   CONTENTS_KEYWORD_FAIL:"키워드가 없습니다",
   CONTENTS_SEARCH_SUCCESS:"컨텐츠 검색을 완료했습니다."
+
 }

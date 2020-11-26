@@ -14,5 +14,10 @@ router.post('/make/sentence',authUtil.checkTeacherToken,courseController.makeSen
 router.post('/make/sync',authUtil.checkTeacherToken,courseController.makeSyncs)
 router.post('/make/question',authUtil.checkTeacherToken,upload.array('questionImg'),courseController.makeQuestions)
 router.post('/',authUtil.checkTeacherToken,courseController.findwords)
+router.put('/contents/:contentsId',authUtil.checkTeacherToken,courseController.updateContents)
+router.put('/word/:wordId',authUtil.checkTeacherToken,courseController.updateWord)
+router.put('/sentence/:sentenceId',authUtil.checkTeacherToken,courseController.updateSentence)
+router.put('/sync/:syncId',authUtil.checkTeacherToken,courseController.updateSync)
+router.put('/question',authUtil.checkTeacherToken,upload.array('questionImg'),courseController.updateQuestion)
 
 module.exports=router

@@ -1,4 +1,4 @@
-const {Courses,Contents,Words,Sentences,Syncs,Questions} = require('../models')
+const {Courses,Contents,Words,Sentences,Syncs,Questions,Categories} = require('../models')
 const categoryService = require('./categoryService')
 module.exports={
     createContents:async(url,contentsTitle,songInfo,category)=>{
@@ -27,7 +27,6 @@ module.exports={
     createQuestions:async(questionTitle,questionText,questionImg,questionAnswer,multiChoice,commentary,courseId)=>{
         courseValidation(courseId)
         const question = await Questions.create({questionTitle,questionText,questionImg,questionAnswer,multiChoice,commentary,CourseId:courseId})
-        console.log('question:',question)
         return question
     },
     findWords:async(courseId)=>{
@@ -48,6 +47,74 @@ module.exports={
             throw error
         }
         return contents 
+    },
+    setCategoryList:async(categoryList,contentsId)=>{
+        const associatedCategory = await Contents.findOne({where:{id:contentsId},attributes:[],include:[{model:Categories,attributes:{exclude:['createdAt','updatedAt'],through:{attributes:[]}}}]})
+        const thisContents = await Contents.findByPk(contentsId)
+        associatedCategory.Categories.map(async(v,i)=>{
+            var isInclude =  categoryList.includes(v.id)
+            if(!isInclude){
+                await thisContents.removeCategories(await Categories.findByPk(v.id))
+            }
+        })
+        categoryList.map(async(v)=>{
+            await thisContents.addCategories(await Categories.findByPk(v))
+        })
+    },
+    updateContents:async(contentsId,contentsTitle,url,songInfo)=>{
+        const contents = await Contents.update({contentsTitle,url,songInfo},{where:{id:contentsId}})
+        if(contents == 0){
+            var newError = new Error('컨텐츠 업데이트 실패-존재하지 않는 컨텐츠값')
+            newError.name = "NoRow"
+            throw newError
+        }
+        var courseId = (await Contents.findOne({where:{id:contentsId},include:[{model:Courses}]})).CourseId
+        const word = await Words.findOne({where:{CourseId:courseId},attributes:{exclude:['createdAt','updatedAt']}})
+
+        return word
+    },
+    updateWord:async(wordId,eng,kor)=>{
+        const word = await Words.update({eng,kor},{where:{id:wordId}})
+        console.log('update:',word)
+        if(word == 0){
+            var newError = new Error("단어 업데이트 실패-존재하지 않는 단어값")
+            newError = "NoRow"
+            throw newError
+        }
+        var courseId = (await Words.findOne({where:{id:wordId},include:[{model:Courses}]})).CourseId
+        const sentence = await Sentences.findOne({where:{CourseId:courseId},attributes:{exclude:['createdAt','updatedAt']}})
+        return sentence
+    },
+    updateSentence:async(sentenceId,eng,kor)=>{
+        const sentence = await Sentences.update({eng,kor},{where:{id:sentenceId}})
+        if(sentence == 0){
+            var newError = new Error("문장 업데이트 실패-존재하지 않는 문장값")
+            newError = "NoRow"
+            throw newError
+        }
+        var courseId = (await Sentences.findOne({where:{id:sentenceId},include:[{model:Courses}]})).CourseId
+        const sync = await Syncs.findOne({where:{CourseId:courseId},attributes:{exclude:['createdAt','updatedAt']},include:[{model:Sentences,attributes:['eng','kor']}]})
+        return sync
+    },
+    updateSync:async(syncId,start,end)=>{
+        const sync = await Syncs.update({start,end},{where:{id:syncId}})
+        if(sync == 0){
+            var newError = new Error("싱크 업데이트 실패-존재하지 않는 싱크값")
+            newError = "NoRow"
+            throw newError
+        }
+        var courseId = (await Syncs.findByPk(syncId)).CourseId
+        const question = await Questions.findAll({where:{CourseId:courseId}})
+        return question
+    },
+    updateQuestion:async(questionId,questionTitle,questionImg,questionText,questionAnswer,multiChoice,commentary)=>{
+        console.log(`${questionTitle}의 텍스트 ${questionText}, 이미지 ${questionImg}`)
+        const question = await Questions.update({questionTitle,questionText,questionImg,questionAnswer,multiChoice,commentary},{where:{id:questionId}})
+        if(question == 0){
+            var newError = new Error("문제 업데이트 실패-존재하지 않는 문제값")
+            newError = "NoRow"
+            throw newError
+        }
     }
 }
 

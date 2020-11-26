@@ -9,7 +9,7 @@ module.exports={
     },
     searchByCategory:async(categoryId)=>{
         const category = await Categories.findByPk(categoryId)
-        const list = await category.getContents({attributes:['id','contentsTitle','url','songInfo','CourseId'],joinTableAttributes:[]})
-        return list
+        const contentsList = await category.getContents({attributes:['id','contentsTitle','url','songInfo','CourseId'],joinTableAttributes:[]})
+        return contentsList
     }
 }
