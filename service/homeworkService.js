@@ -1,11 +1,20 @@
-const {Homeworks,Courses,Users} = require('../models')
+const {Homeworks,Courses,Users,Reports,StudentAssignments} = require('../models')
 
 module.exports={
     createHomework:async(courseId,closingTime,grade,classroom)=>{
         const course = await Courses.findByPk(courseId)
-        const total = (await Users.findAll({where:{grade,classroom}})).length
+        const students = (await Users.findAll({where:{grade,classroom}}))
+        const total = students.length
         const homework = await Homeworks.create({grade,classroom,closingTime,total})
-        await course.addHomework(homework)
-        return total
+        const test = await course.addHomework(homework)
+    
+        students.map(async(v,i)=>{
+            const studentAssignment = await StudentAssignments.findByPk((await homework.addUser(await Users.findByPk(v.id)))[0].id)
+            const studentReport = await Reports.create()
+            console.log('추가된 assignment : ',studentAssignment.dataValues)
+            console.log('studentReport : ',studentReport)
+            await studentAssignment.addReport(studentReport)
+        })
+        return test
     }
 }

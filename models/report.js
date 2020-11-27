@@ -37,7 +37,8 @@ module.exports=(sequelize,DataTypes)=>{
             },
             get:function(){
                 return JSON.parse(this.getDataValue('wordWrong'))
-            }
+            },
+            defaultValue:"[]"
         },
         sentenceRate:{//문장 정답률
             type:DataTypes.INTEGER,
@@ -65,7 +66,8 @@ module.exports=(sequelize,DataTypes)=>{
             },
             get:function(){
                 return JSON.parse(this.getDataValue('sentenceWrong'))
-            }
+            },
+            defaultValue:"[]"
         },
         questionRate:{//문제 정답률
             type:DataTypes.INTEGER,
@@ -93,7 +95,8 @@ module.exports=(sequelize,DataTypes)=>{
             },
             get:function(){
                 return JSON.parse(this.getDataValue('questionWrong'))
-            }
+            },
+            defaultValue:"[]"
         }
     })
 }

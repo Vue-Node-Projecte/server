@@ -6,5 +6,6 @@ module.exports={
     organizationService:require('./organizationService'),
     playlistService:require('./playlistService'),
     contentsService:require('./contentsService'),
-    homeworkService:require('./homeworkService')
+    homeworkService:require('./homeworkService'),
+    reportService:require('./reportService'),
 }
