@@ -21,13 +21,16 @@ db.Syncs=require('./course/syncs')(sequelize,Sequelize)
 db.Questions=require('./course/questions')(sequelize,Sequelize)
 db.Categories=require('./categories')(sequelize,Sequelize)
 db.Playlists=require('./playlists')(sequelize,Sequelize)
+db.Homeworks=require('./homeworks')(sequelize,Sequelize)
+db.StudentAssignments=require('./studentAssignment')(sequelize,Sequelize)
+db.Reports=require('./report')(sequelize,Sequelize)
 
 /*N:M Users:Organizations*/
 db.Users.belongsToMany(db.Organizations,{through:'Affiliations',as:'affiliationed'})
 db.Organizations.belongsToMany(db.Users,{through:'Affiliations',as:'affiliationer'})
 
 /**1:N Course: ... */
-db.Courses.hasOne(db.Contents,{onDelete:'cascade'})
+db.Courses.hasMany(db.Contents,{onDelete:'cascade'})
 db.Contents.belongsTo(db.Courses)
 db.Courses.hasMany(db.Words,{onDelete:'cascade'})
 db.Words.belongsTo(db.Courses)
@@ -47,5 +50,17 @@ db.Categories.belongsToMany(db.Contents,{through:'CategoryList',foreignKey:'Cate
 /**N:M Playlists:Courses */
 db.Playlists.belongsToMany(db.Contents,{through:'BoardList',foreignKey:'PlaylistId'})
 db.Contents.belongsToMany(db.Playlists,{through:'BoardList',foreignKey:'ContentsId'})
+
+/**1:M 수업:과제*/
+db.Courses.hasMany(db.Homeworks,{onDelete:'cascade'})
+db.Homeworks.belongsTo(db.Courses)
+
+/**M:N 과제:사용자 */
+db.Homeworks.belongsToMany(db.Users,{through:'StudentAssignments',foreignKey:'HomeworkId'})
+db.Users.belongsToMany(db.Homeworks,{through:'StudentAssignments',foreignKey:'UserId'})
+
+/**1:M 학생과제:리포트 */
+db.StudentAssignments.hasMany(db.Reports,{onDelete:'cascade'})
+db.Reports.belongsTo(db.StudentAssignments)
 
 module.exports = db;

@@ -78,6 +78,8 @@ module.exports={
 
   /**컨텐츠 */
   CONTENTS_KEYWORD_FAIL:"키워드가 없습니다",
-  CONTENTS_SEARCH_SUCCESS:"컨텐츠 검색을 완료했습니다."
+  CONTENTS_SEARCH_SUCCESS:"컨텐츠 검색을 완료했습니다.",
 
+  /**과제 */
+  HOMEWORK_CREATE_SUCCESS:"과제 생성 성공",
 }

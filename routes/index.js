@@ -8,6 +8,7 @@ router.use('/category',require('./category'))
 router.use('/playlist',require('./playlist'))
 router.use('/dashboard',require('./dashboard'))
 router.use('/contents',require('./contents'))
+router.use('/homework',require('./homework'))
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

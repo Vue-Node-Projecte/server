@@ -1,0 +1,32 @@
+module.exports=(sequelize,DataTypes)=>{
+    return sequelize.define('Homeworks',{
+        grade:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        classroom:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        closingTime:{
+            type:DataTypes.DATE,
+            allowNull:false
+        },
+        deadline:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false
+        },
+        total:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        submit:{
+            type:DataTypes.INTEGER,
+            defaultValue:0,
+            allowNull:false
+        }
+    },{
+        timestamp:true,
+        freezeTableName:true
+    })
+}
