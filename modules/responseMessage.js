@@ -63,6 +63,12 @@ module.exports={
   /*기관 */
   ORGANIZATION_FIND_SUCCESS : "기관찾기 성공",
   ORGANIZATION_FIND_FAIL:"기관찾기 실패",
+  ORGANIZATION_CREATE_FAIL:"기관 생성 실패",
+  ORGANIZATION_CREATE_SUCCESS:"기관 생성 성공",
+  ORGANIZATION_UPDATE_FAIL:"기관 수정 실패",
+  ORGANIZATION_UPDATE_SUCCESS:"기관 수정 성공",
+  ORGANIZATION_DELETE_FAIL:"기관 삭제 실패",
+  ORGANIZATION_DELETE_SUCCESS:"기관 삭제 성공",
 
   /*플레이리스트 */
   PLAYLIST_CREATE_SUCCESS : "플레이리스트 생성 성공",
@@ -82,4 +88,7 @@ module.exports={
 
   /**과제 */
   HOMEWORK_CREATE_SUCCESS:"과제 생성 성공",
+  HOMEWORK_UPDATE_SUCCESS:"과제 수정 성공",
+  HOMEWORK_DELETE_SUCCESS:"과제 삭제 성공",
+  HOMEWORK_READ_SUCCESS:"과제 전체 읽기 성공"
 }
