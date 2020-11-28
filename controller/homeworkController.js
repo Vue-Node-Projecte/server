@@ -12,9 +12,7 @@ module.exports={
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.HOMEWORK_CREATE_SUCCESS))
         }
         try{
-            var convertToClosingTime = convertToDate(closingTime)
-            console.log('convertToClosingTime : ',convertToClosingTime)
-            await homeworkService.createHomework(courseId,convertToClosingTime,grade,classroom)
+            await homeworkService.createHomework(courseId,closingTime,grade,classroom)
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.HOMEWORK_CREATE_SUCCESS))
         }catch(err){
             errReturn(err,res)

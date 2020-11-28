@@ -5,7 +5,6 @@ module.exports={
         const course = await Courses.findByPk(courseId)
         const students = (await Users.findAll({where:{grade,classroom}}))
         const total = students.length
-        console.log('closingTime!!!!!!!!!!!! : ',typeof closingTime)
         const homework = await Homeworks.create({grade,classroom,closingTime,total})
         await course.addHomework(homework)
     
