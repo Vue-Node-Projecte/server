@@ -27,12 +27,12 @@ module.exports={
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.HOMEWORK_CREATE_SUCCESS))
         }
         try{
-            var convertToClosingTime = convertToDate(closingTime)
-            const homework = await homeworkService.modifyHomework(homeworkId,convertToClosingTime)
+            // var convertToClosingTime = convertToDate(closingTime)
+            const homework = await homeworkService.modifyHomework(homeworkId,closingTime)
             var month = homework.getMonth()
             var day = homework.getDate()
             var hours = homework.getHours()
-            var filtermoment = homework.toISOString('yyyy-mm-dd hh:mm:ss')
+            var filtermoment = moment(homework).format('YYYY-MM-DD HH:mm:ss')
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.HOMEWORK_UPDATE_SUCCESS,{filtermoment,month,day,hours}))
         }catch(err){
             errReturn(err,res)
@@ -82,11 +82,11 @@ const convertToDate=(closingTime)=>{
     var year = Number(closingTime.substring(0,4))
     var month = Number(closingTime.substring(5,7))-1
     var day = Number(closingTime.substring(8,10))
-    var hours = Number(closingTime.substring(11,13))
+    var hours = Number(closingTime.substring(11,13))+9
     var minutes = Number(closingTime.substring(14,16))
     var seconds = Number(closingTime.substring(17,19))
     console.log(`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`)
-    var setMoment = moment(new Date(year,month,day,hours,minutes,seconds)).format('YYYY-MM-DD HH:mm:ss') //여기까진 원하는 date형태로 들어가는데 db에 들어가게되면 day값과 hours시간이 이상하게됨.
-
+    console.log('test !!!!!!!!!:',new Date(closingTime))
+    var setMoment = moment(new Date(year,month,day,hours,minutes,seconds))//.format('YYYY-MM-DD HH:mm:ss') //여기까진 원하는 date형태로 들어가는데 db에 들어가게되면 day값과 hours시간이 이상하게됨.
     return setMoment
 }

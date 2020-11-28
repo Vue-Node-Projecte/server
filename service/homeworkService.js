@@ -16,7 +16,6 @@ module.exports={
         })
     },
     modifyHomework:async(homeworkId,closingTime)=>{
-        console.log('modifyHomewor closingTIme:',closingTime)
         await Homeworks.update({closingTime},{where:{id:homeworkId}})
         const test = await Homeworks.findByPk(homeworkId)
         return test.closingTime
