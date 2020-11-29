@@ -64,5 +64,11 @@ module.exports={
         }catch(err){
             throw err
         }
+    },
+    update:async(userId,name,email,password,grade,classroom,number)=>{
+        await Users.update({name,email,password,grade,classroom,number},{where:{id:userId}})
+    },
+    delete:async(userId)=>{
+        await Users.destroy({where:{id:userId}})
     }
 }

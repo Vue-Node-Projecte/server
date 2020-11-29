@@ -44,5 +44,30 @@ module.exports={
             console.log(err)
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,responseMessage.INTERNAL_SERVER_ERROR))
         }   
+    },
+    updateUser:async(req,res)=>{
+        const {userId} = req.params
+        const {name,grade,classroom,number,email,password}= req.body
+        if(!name || !email || !password || !grade || !classroom || !number ){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
+        }
+        try{
+            await userService.update(userId,name,email,password,grade,classroom,number)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.MEMBER_UPDATE_SUCCESS))
+        }catch(err){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,err.message))
+        }
+    },
+    deleteUser:async(req,res)=>{
+        const {userId} = req.params
+        if(!userId){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
+        }
+        try{
+            await userService.delete(userId)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.MEMBER_DELETE_SUCCESS))
+        }catch(err){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,err.message))
+        }
     }
 }
