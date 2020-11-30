@@ -14,12 +14,11 @@ module.exports = {
             var text
             if(word){
                 text = await translateText(word)
-                return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.TRANSLATE_WORD_SUCCESS, text))
+                return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.TRANSLATE_WORD_SUCCESS,{'word':text}))
                 
             }else if(sentence){
-                console.log('sentence')
                 text = await translateText(sentence)
-                return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.TRANSLATE_WORD_SUCCESS, text))
+                return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.TRANSLATE_WORD_SUCCESS,{'sentence':text}))
             }else{
                 return res.status(statusCode.BAD_REQUEST).sent(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
             }
