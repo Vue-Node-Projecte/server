@@ -90,5 +90,11 @@ module.exports={
   HOMEWORK_CREATE_SUCCESS:"과제 생성 성공",
   HOMEWORK_UPDATE_SUCCESS:"과제 수정 성공",
   HOMEWORK_DELETE_SUCCESS:"과제 삭제 성공",
-  HOMEWORK_READ_SUCCESS:"과제 전체 읽기 성공"
+  HOMEWORK_READ_SUCCESS:"과제 전체 읽기 성공",
+
+  /**번역 */
+  TRANSLATE_WORD_SUCCESS:"단어 번역 성공",
+  TRANSLATE_WORD_FAIL:"단어 번역 실패",
+  TRANSLATE_SENTENCE_SUCCESS:"문장 번역 성공",
+  TRANSLATE_SENTENCE_FAIL:"문장 번역 실패",
 }
