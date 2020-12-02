@@ -10,6 +10,7 @@ router.use('/dashboard',require('./dashboard'))
 router.use('/contents',require('./contents'))
 router.use('/homework',require('./homework'))
 router.use('/translate',require('./translate'))
+router.use('/study',require('./study'))
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

@@ -1,8 +1,8 @@
 const util = require('../modules/util')
 const responseMessage = require('../modules/responseMessage')
 const statusCode = require('../modules/statusCode')
-const client_id = ''
-const client_secret = ''
+const client_id = 'TpLVsYlOYVnqnM28rjOn'
+const client_secret = 'qwHXNuq6Sp'
 const request = require('request')
 
 module.exports = {

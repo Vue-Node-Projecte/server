@@ -8,4 +8,5 @@ module.exports={
     contentsService:require('./contentsService'),
     homeworkService:require('./homeworkService'),
     reportService:require('./reportService'),
+    studyService:require('./studyService')
 }
