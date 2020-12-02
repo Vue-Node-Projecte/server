@@ -11,6 +11,10 @@ module.exports=function async(sequelize,DataTypes){
         songInfo:{
             type:DataTypes.STRING(200),
             allowNull:false
+        },
+        visible:{
+            type:DataTypes.BOOLEAN,
+            defineValue:true
         }
     },{
         freezeTableName:true,

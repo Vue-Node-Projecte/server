@@ -24,6 +24,7 @@ db.Playlists=require('./playlists')(sequelize,Sequelize)
 db.Homeworks=require('./homeworks')(sequelize,Sequelize)
 db.StudentAssignments=require('./studentAssignment')(sequelize,Sequelize)
 db.Reports=require('./report')(sequelize,Sequelize)
+db.WordsContainers=require('./wordContainer')(sequelize,Sequelize)
 
 /*N:M Users:Organizations*/
 db.Users.belongsToMany(db.Organizations,{through:'Affiliations',as:'affiliationed'})

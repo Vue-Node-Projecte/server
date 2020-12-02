@@ -101,4 +101,10 @@ module.exports={
   /**수업(수업듣기) */
   STUDY_READ_COURSE_SUCCESS:"수업 정보 불러오기 성공",
   STUDY_READ_COURSE_FAIL:"수업 정보 불러오기 실패",
+  STUDY_WORD_SUCCESS:"단어 불러오기 성공",
+  STUDY_WORD_FAIL:"단어 불러오기 실패",
+  STUDY_SENTENCE_SUCCESS:"문장 불러오기 성공",
+  STUDY_SENTENCE_FAIL:"문장 불러오기 실패",
+  STUDY_QUESTION_SUCCESS:"문제 불러오기 성공",
+  STUDY_QUESTION_FAIL:"문제 불러오기 실패"
 }
