@@ -11,12 +11,16 @@ module.exports={
         const bogiWordArray = [wordContainerList[wordListRandom].word]
 
         const word = await Words.findOne({where:{CourseId:courseId},attributes:["id","eng","kor"]})
+        if(sequence >= word.eng.length){
+            return -1
+        }
         bogiWordArray.push(...createBogi(word,sequence))
         
         const [shuffleBogi,answerIndex] = shuffleArr(bogiWordArray)
         console.log('shuffleBogi:',shuffleBogi,'index:',answerIndex)
         word.dataValues.testList = shuffleBogi
         word.dataValues.answerIndex = answerIndex
+        word.dataValues.sequence = Number(sequence)
         
         return word
     },
