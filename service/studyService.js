@@ -11,6 +11,7 @@ module.exports={
         const bogiWordArray = [wordContainerList[wordListRandom].word]
 
         const word = await Words.findOne({where:{CourseId:courseId},attributes:["id","eng","kor"]})
+        const totalWord = word.eng.length
         if(sequence >= word.eng.length){
             word.dataValues.sequence = -1
             return word
@@ -21,11 +22,12 @@ module.exports={
         word.dataValues.testList = shuffleBogi
         word.dataValues.answerIndex = answerIndex
         word.dataValues.sequence = Number(sequence)
-        
+        word.dataValues.total = totalWord
         return word
     },
     getSentence:async(courseId,sequence)=>{
         const sentence = await Sentences.findOne({where:{CourseId:courseId},attributes:['id','eng','kor']})
+        const totalSentence = sentence.eng.length
         if(sequence>= sentence.eng.length){
             sentence.dataValues.sequence=Number(-1)
             return sentence
@@ -39,6 +41,7 @@ module.exports={
             sentence.dataValues.testAnswer = testAnswer
             sentence.dataValues.sequence = Number(sequence)
             sentence.dataValues.level = testLevel
+            sentence.dataValues.total = totalSentence
             return sentence
         }else if(testLevel == 2){
             console.log('level 2')
@@ -47,6 +50,7 @@ module.exports={
             sentence.dataValues.testAnswer = testAnswer
             sentence.dataValues.sequence = Number(sequence)
             sentence.dataValues.level = testLevel
+            sentence.dataValues.total = totalSentence
             return sentence
         }
         else{
@@ -56,11 +60,23 @@ module.exports={
             sentence.dataValues.testAnswer = testAnswer
             sentence.dataValues.sequence = Number(sequence)
             sentence.dataValues.level = testLevel
+            sentence.dataValues.total = totalSentence
             return sentence
         }
     },
-    getQuestion:async(courseId)=>{
-
+    getQuestion:async(courseId,sequence)=>{
+        const questionList = await Questions.findAll({where:{CourseId:courseId},attributes:{exclude:['createdAt','updatedAt','CourseId']}})
+        const question = questionList[sequence]
+        const totalQuestion = questionList.length
+        if(sequence>=questionList.length){
+            const nullObject = {}
+            nullObject.sequence=Number(-1)
+            return nullObject
+        }
+        
+        question.dataValues.sequence=Number(sequence)
+        question.dataValues.total=totalQuestion
+        return question
     }
 }
 const createBogi = (word,sequence)=>{
@@ -101,10 +117,8 @@ const shuffleArr = (bogiWordArray)=>{
 }
 
 const rowLevelSentence = (sentence,sequence) =>{    //영어를 한국어로 번역
-    console.log('sentence:',sentence)
     const sentenceTest = sentence.eng[sequence]
     const testAnswer = sentence.kor[sequence]
-    console.log(`sentenceTest:${sentenceTest}, testAnswer:${testAnswer}`)
     return [sentenceTest, testAnswer]
 }
 

@@ -32,9 +32,9 @@ module.exports={
         }
     },
     studyQuestion:async(req,res)=>{
-        const {courseId} = req.params
+        const {courseId,sequence} = req.params
         try{
-            const questionTest = await studyService.getQuestion(courseId)
+            const questionTest = await studyService.getQuestion(courseId,sequence)
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.STUDY_QUESTION_SUCCESS,questionTest))
         }catch(err){
             errorReturn(err,res)
