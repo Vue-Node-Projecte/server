@@ -106,5 +106,9 @@ module.exports={
   STUDY_SENTENCE_SUCCESS:"문장 불러오기 성공",
   STUDY_SENTENCE_FAIL:"문장 불러오기 실패",
   STUDY_QUESTION_SUCCESS:"문제 불러오기 성공",
-  STUDY_QUESTION_FAIL:"문제 불러오기 실패"
+  STUDY_QUESTION_FAIL:"문제 불러오기 실패",
+
+  /**노출여부 */
+  VISIBLE_SET_SUCCESS:"노출여부 변경 완료",
+  VISIBLE_SET_FAIL:"노출여부 변경 실패"
 }

@@ -76,6 +76,14 @@ module.exports={
     moreViewPlaylist:async(playlistId)=>{
         const contents = await Playlists.findOne({where:{id:playlistId},include:[{model:Contents,attributes:{exclude:['createdAt','updatedAt']},through:{attributes:[]}}]})
         return contents.Contents
+    },
+    setVisible:async(playlistId,visible)=>{
+        const playlist = await Playlists.update({visible},{where:{id:playlistId}})
+        if(playlist == 0){
+            var newError = new Error('노출여부 변경 실패')
+            newError.name = 'ContentsVisibleFail'
+            throw newError
+        }
     }
 }
 const configSequence=async()=>{

@@ -58,12 +58,24 @@ module.exports={
         }catch(err){
             errReturn(err,res)
         }
+    },
+    isVisible:async(req,res)=>{
+        const {playlistId} = req.params
+        const {visible} = req.body
+        try{
+            await playlistService.setVisible(playlistId,visible)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.VISIBLE_SET_SUCCESS))
+        }catch(err){
+            errReturn(err,res)
+        }
     }
 }
 const errReturn=(err,res)=>{
     console.log(err)
     if(err.name =="NULL_PLAYLIST"){
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,err.message))
+    }else if(err.name == "ContentsVisibleFail"){
+        return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,responseMessage.VISIBLE_SET_FAIL))
     }
     return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,err.message))
 }

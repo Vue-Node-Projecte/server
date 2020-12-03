@@ -4,6 +4,7 @@ const courseController = require('../../controller/courseController')
 const multer = require('multer')
 const upload = require('../../modules/multer')
 const authUtil = require('../../middlewares/authUtil')
+const { checkTeacherToken } = require('../../middlewares/authUtil')
 // const upload = multer({
 //     dest:'upload/'
 // })
@@ -14,6 +15,7 @@ router.post('/make/sentence',authUtil.checkTeacherToken,courseController.makeSen
 router.post('/make/sync',authUtil.checkTeacherToken,courseController.makeSyncs)
 router.post('/make/question',authUtil.checkTeacherToken,upload.array('questionImg'),courseController.makeQuestions)
 router.post('/',authUtil.checkTeacherToken,courseController.findwords)
+router.post('/visible/:contentsId',authUtil.checkTeacherToken,courseController.isVisible)
 router.put('/contents/:contentsId',authUtil.checkTeacherToken,courseController.updateContents)
 router.put('/word/:wordId',authUtil.checkTeacherToken,courseController.updateWord)
 router.put('/sentence/:sentenceId',authUtil.checkTeacherToken,courseController.updateSentence)

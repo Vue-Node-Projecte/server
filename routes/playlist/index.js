@@ -7,5 +7,6 @@ router.post('/registration',authUtil.checkTeacherToken,playlistController.regist
 router.post('/addition/:playlistId',authUtil.checkTeacherToken,playlistController.additional)
 router.put('/:playlistId',authUtil.checkTeacherToken,playlistController.modify)
 router.delete('/:playlistId',authUtil.checkTeacherToken,playlistController.delete)
+router.post('/visible/:playlistId',authUtil.checkTeacherToken,playlistController.isVisible)
 
 module.exports=router

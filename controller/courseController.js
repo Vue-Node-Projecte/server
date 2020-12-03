@@ -91,20 +91,6 @@ module.exports = {
             }
         })
         try {
-            // parseBodyQuestion.map(async(v,i)=>{
-            //     var questionImg=null
-            //     if(v.questionText == undefined){
-            //         if(req.files.length>0){
-            //             console.log(req.files)
-            //             questionImg = req.files[i].location
-            //         }else{
-            //             var newError = new Error('이미지파일이나 txt 둘중 하나는 꼭 작성해야한다.')
-            //             newError.name = "ImgOrText"
-            //             throw newError
-            //         }
-            //     }
-            //     await courseService.createQuestions(v.questionTitle,v.questionText,questionImg,v.questionAnswer,v.multiChoice,v.commentary,v.courseId)
-            // })
             var questionImgLength = req.files.length
             var questionImgCnt = 0
             parseBodyQuestion.map(async (v, i) => {
@@ -124,6 +110,16 @@ module.exports = {
             res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COURSEMAKE_QUESTION_SUCCESS))
         } catch (err) {
             errorReturn(err, res)
+        }
+    },
+    isVisible:async(req,res)=>{
+        const {contentsId} = req.params
+        const {visible} = req.body
+        try{
+            await courseService.setVisible(contentsId,visible)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.VISIBLE_SET_SUCCESS))
+        }catch(err){
+            errorReturn(err,res)
         }
     },
     updateContents: async (req, res) => {
@@ -279,7 +275,10 @@ const errorReturn = (err, res) => {
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message))
     } else if (err.name == 'ImgOrText') {
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, err.message))
-    } else {
+    } else if (err.name == 'ContentsVisibleFail'){
+        return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,responseMessage.VISIBLE_SET_FAIL))
+    } 
+    else {
         return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR))
     }
 }

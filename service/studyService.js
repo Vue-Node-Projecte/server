@@ -17,10 +17,7 @@ module.exports={
         console.log('shuffleBogi:',shuffleBogi,'index:',answerIndex)
         word.dataValues.testList = shuffleBogi
         word.dataValues.answerIndex = answerIndex
-        // console.log(typeof word)
-
-        // const testInformation ={"testList":shuffleBogi,"answerIndex":answerIndex}
-        // word[testInformation].push(testInformation)
+        
         return word
     },
     getSentence:async(courseId)=>{

@@ -61,6 +61,13 @@ module.exports={
             await thisContents.addCategories(await Categories.findByPk(v))
         })
     },
+    setVisible:async(contentsId,visible)=>{
+        const contents = await Contents.update({visible},{where:{id:contentsId}})
+        if(contents == 0){
+            var newError = new Error('컨텐츠 노출여부 변경 실패')
+            newError.name="ContentsVisibleFail"
+        }
+    },
     updateContents:async(contentsId,contentsTitle,url,songInfo)=>{
         const contents = await Contents.update({contentsTitle,url,songInfo},{where:{id:contentsId}})
         if(contents == 0){
