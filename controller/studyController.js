@@ -23,9 +23,9 @@ module.exports={
         }
     },
     studySentence:async(req,res)=>{
-        const {courseId} = req.params
+        const {courseId,sequence} = req.params
         try{
-            const sentenceTest = await studyService.getSentence(courseId)
+            const sentenceTest = await studyService.getSentence(courseId,sequence)
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.STUDY_SENTENCE_SUCCESS,sentenceTest))
         }catch(err){
             errorReturn(err,res)

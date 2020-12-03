@@ -5,7 +5,7 @@ const authUtil = require('../../middlewares/authUtil')
 
 router.get('/:courseId',studyController.showStudyMain)
 router.get('/word/:courseId/:sequence',studyController.studyWord)
-router.get('/sentence/:courseId',studyController.studySentence)
+router.get('/sentence/:courseId/:sequence',studyController.studySentence)
 router.get('/question/:courseId',studyController.studyQuestion)
 
 module.exports=router
