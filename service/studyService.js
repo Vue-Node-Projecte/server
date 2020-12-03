@@ -12,7 +12,8 @@ module.exports={
 
         const word = await Words.findOne({where:{CourseId:courseId},attributes:["id","eng","kor"]})
         if(sequence >= word.eng.length){
-            return -1
+            word.dataValues.sequence = -1
+            return word
         }
         bogiWordArray.push(...createBogi(word,sequence))
         
@@ -24,7 +25,7 @@ module.exports={
         
         return word
     },
-    getSentence:async(courseId)=>{
+    getSentence:async(courseId,sequence)=>{
 
     },
     getQuestion:async(courseId)=>{
