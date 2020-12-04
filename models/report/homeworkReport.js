@@ -10,6 +10,9 @@ module.exports=(sequelize,DataTypes)=>{
         },
         completeDate:{//학생의 과제 완료일
             type:DataTypes.DATEONLY,
+            set:function(val){
+                return this.setDataValue('completeDate',moment(val).toDate())
+            }
         },
         wordRate:{//단어 정답률
             type:DataTypes.INTEGER,
