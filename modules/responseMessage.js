@@ -110,5 +110,13 @@ module.exports={
 
   /**노출여부 */
   VISIBLE_SET_SUCCESS:"노출여부 변경 완료",
-  VISIBLE_SET_FAIL:"노출여부 변경 실패"
+  VISIBLE_SET_FAIL:"노출여부 변경 실패",
+
+  /**리포트 */
+  REPORT_UPDATE_WORD_FAIL:"단어 리포트 업데이트실패",
+  REPORT_UPDATE_WORD_SUCCESS:"단어 리포트 업데이트성공",
+  REPORT_UPDATE_SENTENCE_FAIL:"문장 리포트 업데이트실패",
+  REPORT_UPDATE_SENTENCE_SUCCESS:"문장 리포트 업데이트성공",
+  REPORT_UPDATE_QUESTION_FAIL:"문제 리포트 업데이트실패",
+  REPORT_UPDATE_QUESTION_SUCCESS:"문제 리포트 업데이트성공",
 }

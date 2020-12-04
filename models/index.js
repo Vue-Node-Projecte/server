@@ -23,8 +23,9 @@ db.Categories=require('./categories')(sequelize,Sequelize)
 db.Playlists=require('./playlists')(sequelize,Sequelize)
 db.Homeworks=require('./homeworks')(sequelize,Sequelize)
 db.StudentAssignments=require('./studentAssignment')(sequelize,Sequelize)
-db.Reports=require('./report')(sequelize,Sequelize)
+db.HomeworkReports=require('./report/homeworkReport')(sequelize,Sequelize)
 db.WordsContainers=require('./wordContainer')(sequelize,Sequelize)
+db.IndividualReport=require('./report/individualReports')(sequelize,Sequelize)
 
 /*N:M Users:Organizations*/
 db.Users.belongsToMany(db.Organizations,{through:'Affiliations',as:'affiliationed'})
@@ -61,7 +62,10 @@ db.Homeworks.belongsToMany(db.Users,{through:'StudentAssignments',foreignKey:'Ho
 db.Users.belongsToMany(db.Homeworks,{through:'StudentAssignments',foreignKey:'UserId'})
 
 /**1:M 학생과제:리포트 */
-db.StudentAssignments.hasMany(db.Reports,{onDelete:'cascade'})
-db.Reports.belongsTo(db.StudentAssignments)
+db.StudentAssignments.hasMany(db.HomeworkReports,{onDelete:'cascade'})
+db.HomeworkReports.belongsTo(db.StudentAssignments)
+
+db.Users.hasMany(db.IndividualReport,{onDelete:'cascade'})
+db.IndividualReport.belongsTo(db.Users)
 
 module.exports = db;
