@@ -6,8 +6,9 @@ const {userService} = require('../service')
 const jwt =require('../modules/jwt')
 module.exports={
     registration:async(req,res)=>{
-        const {name, authority, organizationId,email,password,grade,classroom,number} = req.body;
-        if(!name || !authority || !organizationId || !email || !password){
+        const {name, authority, organization,email,password,grade,classroom,number} = req.body;
+        console.log(`${name}, ${authority}, ${organization}, ${email}, ${password}`)
+        if(!name || !authority || !organization || !email || !password){
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
         }
         try{
@@ -17,9 +18,9 @@ module.exports={
             }
             let affiliation
             if(authority==1){
-                affiliation = await userService.createTeacher(name,authority,organizationId,email,password)
+                affiliation = await userService.createTeacher(name,authority,organization,email,password)
             }else{
-                affiliation = await userService.createStudent(name, authority, organizationId,email,password,grade,classroom,number)
+                affiliation = await userService.createStudent(name, authority, organization,email,password,grade,classroom,number)
             }
             return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.SIGN_UP_SUCCESS,affiliation))
         }catch(err){

@@ -13,21 +13,21 @@ module.exports={
             throw err
         }
     },
-    createTeacher:async(name, authority, organizationId ,email,password)=>{
+    createTeacher:async(name, authority, organization ,email,password)=>{
         try{
             const user = await Users.create({name,authority,email,password})
-            const organization = await Organizations.findOne({where:{id:organizationId}})
-            const affiliation = await Affiliations.create({UserId:user.dataValues.id,OrganizationId:organization.dataValues.id})
+            const organizationContent = await Organizations.findOne({where:{name:organization}})
+            const affiliation = await Affiliations.create({UserId:user.dataValues.id,OrganizationId:organizationContent.dataValues.id})
             return affiliation
         }catch(err){
             throw err
         }
     },
-    createStudent:async(name, authority, organizationId ,email,password,grade,classroom,number)=>{
+    createStudent:async(name, authority, organization ,email,password,grade,classroom,number)=>{
         try{
             const user = await Users.create({name,authority,email,password,grade,classroom,number})
-            const organization = await Organizations.findOne({where:{id:organizationId}})
-            const affiliation = await Affiliations.create({UserId:user.dataValues.id,OrganizationId:organization.dataValues.id})
+            const organizationContent = await Organizations.findOne({where:{name:organization}})
+            const affiliation = await Affiliations.create({UserId:user.dataValues.id,OrganizationId:organizationContent.dataValues.id})
             return affiliation
         }catch(err){
             throw err
