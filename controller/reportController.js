@@ -7,7 +7,7 @@ const {
 const moment = require('moment')
 
 module.exports = {
-    IndividualWordReport: async (req, res) => {
+    setIndividualWordReport: async (req, res) => {
         const {
             wordCount,
             wordAnswerCnt,
@@ -28,7 +28,7 @@ module.exports = {
             errorReturn(err,res)
         }
     },
-    IndividualSentenceReport: async (req, res) => {
+    setIndividualSentenceReport: async (req, res) => {
         const {sentenceCount,sentenceAnswerCnt,sentenceWrongCnt,sentenceWrong,completeDate} = req.body
         const {id} = req.decoded
         if(!sentenceCount||!sentenceAnswerCnt||!sentenceWrongCnt||!completeDate){
@@ -41,7 +41,7 @@ module.exports = {
             errorReturn(err,res)
         }
     },
-    IndividualQuestionReport: async (req, res) => {
+    setIndividualQuestionReport: async (req, res) => {
         const {questionCount,questionAnswerCnt,questionWrongCnt,questionWrong,completeDate}=req.body
         const {id}=req.decoded
         if(!questionCount||!questionAnswerCnt||!questionWrongCnt||!completeDate){
@@ -54,13 +54,23 @@ module.exports = {
             errorReturn(err,res)
         }
     },
-    HomeworkWordReport: async (req, res) => {
+    setHomeworkWordReport: async (req, res) => {
+        const {wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate}=req.body
+        const {id}=req.decoded
+        if(!wordCount||!wordAnswerCnt||!wordWrongCnt||!completeDate){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
+        }
+        try{
+            const test = await reportService.setHomeworkWordReport(id,wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.REPORT_UPDATE_WORD_SUCCESS,test))
+        }catch(err){
+            errorReturn(err,res)
+        }
+    },
+    setHomeworkSentenceReport: async (req, res) => {
 
     },
-    HomeworkSentenceReport: async (req, res) => {
-
-    },
-    HomeworkQuestionReport: async (req, res) => {
+    setHomeworkQuestionReport: async (req, res) => {
 
     }
 }

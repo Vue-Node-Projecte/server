@@ -1,4 +1,4 @@
-const {HomeworkReports,IndividualReport,Homeworks,Users, Sequelize} = require('../models')
+const {HomeworkReports,IndividualReport,Homeworks,Users, Sequelize,StudentAssignments} = require('../models')
 const moment = require('moment')
 const Op = Sequelize.Op;
 module.exports={
@@ -78,6 +78,10 @@ module.exports={
             }
             return thisIndividualReport
         }
+    },
+    setHomeworkWordReport:async(userId,wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate)=>{
+        const report = await StudentAssignments.findAll({where:{UserId:userId}})
+        return report
     }
 }
 const convertDate=async(completeDate)=>{
