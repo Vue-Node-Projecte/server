@@ -55,23 +55,46 @@ module.exports = {
         }
     },
     setHomeworkWordReport: async (req, res) => {
+        const {homeworkId} = req.params
         const {wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate}=req.body
         const {id}=req.decoded
         if(!wordCount||!wordAnswerCnt||!wordWrongCnt||!completeDate){
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
         }
         try{
-            const test = await reportService.setHomeworkWordReport(id,wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate)
-            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.REPORT_UPDATE_WORD_SUCCESS,test))
+            await reportService.setHomeworkWordReport(id,homeworkId,wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.REPORT_UPDATE_WORD_SUCCESS))
         }catch(err){
             errorReturn(err,res)
         }
     },
     setHomeworkSentenceReport: async (req, res) => {
-
+        const {homeworkId} = req.params
+        const {sentenceCount,sentenceAnswerCnt,sentenceWrongCnt,sentenceWrong,completeDate}=req.body
+        const {id} = req.decoded
+        if(!sentenceCount||!sentenceAnswerCnt||!sentenceWrongCnt||!completeDate){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
+        }
+        try{
+            await reportService.setHomeworkSentenceReport(id,homeworkId,sentenceCount,sentenceAnswerCnt,sentenceWrongCnt,sentenceWrong,completeDate)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.REPORT_UPDATE_SENTENCE_SUCCESS))
+        }catch(err){
+            errorReturn(err,res)
+        }
     },
     setHomeworkQuestionReport: async (req, res) => {
-
+        const {homeworkId} = req.params
+        const {questionCount,questionAnswerCnt,questionWrongCnt,questionWrong,completeDate} = req.body
+        const {id} = req.decoded
+        if(!questionCount||!questionAnswerCnt||!questionWrongCnt||!completeDate){
+            return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE))
+        }
+        try{
+            await reportService.setHomeworkQuestionReport(id,homeworkId,questionCount,questionAnswerCnt,questionWrongCnt,questionWrong,completeDate)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.REPORT_UPDATE_QUESTION_SUCCESS))
+        }catch(err){
+            errorReturn(err,res)
+        }
     }
 }
 
@@ -82,6 +105,8 @@ const errorReturn=(err,res)=>{
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.REPORT_UPDATE_SENTENCE_FAIL))
     }else if(err.name=="WrongRequestQuestionReport"){
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.REPORT_UPDATE_QUESTION_FAIL))
+    }else if(err.name=="FailToUpdateHomeworkSubmit"){
+        return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,err.message))
     }
     else{
         return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,err.message))

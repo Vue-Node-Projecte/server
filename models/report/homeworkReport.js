@@ -1,12 +1,18 @@
+const moment = require('moment')
 module.exports=(sequelize,DataTypes)=>{
     return sequelize.define('HomeworkReports',{
         achieve:{//해당 과제 학생 성취도
             type:DataTypes.INTEGER,
-            defaultValue:0
+            defaultValue:0,
         },
         isComplete:{//해당 과제 학생 완료여부
             type:DataTypes.BOOLEAN,
-            defaultValue:false
+            defaultValue:false,
+            set:function(val){
+                if((this.getDataValue('wordRate')!=0) && (this.getDataValue('sentenceRate')!=0) && (this.getDataValue('questionRate')!=0)){
+                    return setDataValue('achieve',True)
+                }
+            }
         },
         completeDate:{//학생의 과제 완료일
             type:DataTypes.DATEONLY,
