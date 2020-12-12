@@ -10,7 +10,7 @@ module.exports=(sequelize,DataTypes)=>{
             defaultValue:false,
             set:function(val){
                 if((this.getDataValue('wordRate')!=0) && (this.getDataValue('sentenceRate')!=0) && (this.getDataValue('questionRate')!=0)){
-                    return setDataValue('achieve',True)
+                    return setDataValue('achieve',true)
                 }
             }
         },

@@ -125,9 +125,11 @@ module.exports={
                 throw newError
             }
         }
-
+        console.log('test!!!!!!!!!!!',studentAssignment.HomeworkId)
         const thisHomework = await Homeworks.findOne({where:{id:studentAssignment.HomeworkId}})
-        const updateHomework = await Homeworks.update({submit:(thisHomework.submit)+1},{where:{id:thisHomework.id}})
+        const updateSubmit = (thisHomework.submit)+1
+        const updateHomework = await Homeworks.update({submit:updateSubmit},{where:{id:thisHomework.id}})
+        console.log(thisHomework.closingTime)
         if(updateHomework == 0){
             var newError = new Error('homework submit업데이트 실패')
             newError.name = "FailToUpdateHomeworkSubmit"
