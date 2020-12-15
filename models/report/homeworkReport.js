@@ -2,17 +2,12 @@ const moment = require('moment')
 module.exports=(sequelize,DataTypes)=>{
     return sequelize.define('HomeworkReports',{
         achieve:{//해당 과제 학생 성취도
-            type:DataTypes.INTEGER,
+            type:DataTypes.DOUBLE,
             defaultValue:0,
         },
         isComplete:{//해당 과제 학생 완료여부
             type:DataTypes.BOOLEAN,
             defaultValue:false,
-            set:function(val){
-                if((this.getDataValue('wordRate')!=0) && (this.getDataValue('sentenceRate')!=0) && (this.getDataValue('questionRate')!=0)){
-                    return setDataValue('achieve',true)
-                }
-            }
         },
         completeDate:{//학생의 과제 완료일
             type:DataTypes.DATEONLY,
@@ -21,10 +16,10 @@ module.exports=(sequelize,DataTypes)=>{
             }
         },
         wordRate:{//단어 정답률
-            type:DataTypes.INTEGER,
+            type:DataTypes.DOUBLE,
             defaultValue:0,
             get:function(){
-                return (this.getDataValue('wordAnswerCnt')/this.getDataValue('wordCount')).toFixed(2)
+                return Number((this.getDataValue('wordAnswerCnt')/this.getDataValue('wordCount')).toFixed(2))
             },
         },
         wordCount:{//학습 단어 갯수
@@ -50,10 +45,10 @@ module.exports=(sequelize,DataTypes)=>{
             defaultValue:"[]"
         },
         sentenceRate:{//문장 정답률
-            type:DataTypes.INTEGER,
+            type:DataTypes.DOUBLE,
             defaultValue:0,
             get:function(){
-                return (this.getDataValue('sentenceAnswerCnt')/this.getDataValue('sentenceCount')).toFixed(2)
+                return Number((this.getDataValue('sentenceAnswerCnt')/this.getDataValue('sentenceCount')).toFixed(2))
             }
         },
         sentenceCount:{//학습 문장 갯수
@@ -79,10 +74,10 @@ module.exports=(sequelize,DataTypes)=>{
             defaultValue:"[]"
         },
         questionRate:{//문제 정답률
-            type:DataTypes.INTEGER,
+            type:DataTypes.DOUBLE,
             defaultValue:0,
             get:function(){
-                return (this.getDataValue('questionAnswerCnt')/this.getDataValue('questionCount')).toFixed(2)
+                return Number((this.getDataValue('questionAnswerCnt')/this.getDataValue('questionCount')).toFixed(2))
             }
         },
         questionCount:{//학습 문제 갯수

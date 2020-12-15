@@ -78,7 +78,9 @@ module.exports={
                     wordWrong.push(v)
                 }
             })
-            const thisWordReport = await HomeworkReports.update({wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate},{where:{id:homeworkReport.id}})
+            const achieve = checkAchieve(homeworkReport)
+            const thisWordReport = await HomeworkReports.update({wordCount,wordAnswerCnt,wordWrongCnt,wordWrong,completeDate,achieve},{where:{id:homeworkReport.id}})
+            await checkComplete(homeworkReport,homeworkId)
             if(thisWordReport == 0){
                 var newError = new Error('wordReport 업데이트실패')
                 newError.name = "WrongRequestWordReport"
@@ -98,7 +100,9 @@ module.exports={
                     sentenceWrong.push(v)
                 }
             })
-            const thisSentenceReport =  await HomeworkReports.update({sentenceCount,sentenceAnswerCnt,sentenceWrongCnt,sentenceWrong},{where:{id:homeworkReport.id}})
+            const achieve = checkAchieve(homeworkReport)
+            const thisSentenceReport =  await HomeworkReports.update({sentenceCount,sentenceAnswerCnt,sentenceWrongCnt,sentenceWrong,achieve},{where:{id:homeworkReport.id}})
+            await checkComplete(homeworkReport,homeworkId)
             if(thisSentenceReport == 0){
                 var newError = new Error("sentenceReport 업데이트 실패")
                 newError.name = "WrongRequestSentenceReport"
@@ -118,18 +122,20 @@ module.exports={
                     questionWrong.push(v)
                 }
             })
-            const thisQuestionReport = await HomeworkReports.update({questionCount,questionAnswerCnt,questionWrongCnt,questionWrong,completeDate},{where:{id:homeworkReport.id}})
+            const achieve = checkAchieve(homeworkReport)
+
+            const thisQuestionReport = await HomeworkReports.update({questionCount,questionAnswerCnt,questionWrongCnt,questionWrong,completeDate,achieve},{where:{id:homeworkReport.id}})
             if(thisQuestionReport == 0){
                 var newError = new Error("questionReport 업데이트 실패")
                 newError.name = "WrongRequestQuestionReport"
                 throw newError
             }
         }
-        console.log('test!!!!!!!!!!!',studentAssignment.HomeworkId)
         const thisHomework = await Homeworks.findOne({where:{id:studentAssignment.HomeworkId}})
         const updateSubmit = (thisHomework.submit)+1
         const updateHomework = await Homeworks.update({submit:updateSubmit},{where:{id:thisHomework.id}})
         console.log(thisHomework.closingTime)
+        await checkComplete(homeworkReport,homeworkId)
         if(updateHomework == 0){
             var newError = new Error('homework submit업데이트 실패')
             newError.name = "FailToUpdateHomeworkSubmit"
@@ -137,7 +143,15 @@ module.exports={
         }
     }
 }
-const convertDate=async(completeDate)=>{
-    return await moment(completeDate).toDate()
+const checkComplete=async(homeworkReport,homeworkId)=>{
+    if(homeworkReport.wordRate!=0 && homeworkReport.sentenceRate!=0 && homeworkReport.questionRate!=0){
+        const test = await HomeworkReports.update({isComplete:true},{where:{id:homeworkId}})
+    }
+}
+
+const checkAchieve=(homeworkReport)=>{
+    const achieve = ((homeworkReport.wordRate)+(homeworkReport.sentenceRate)+(homeworkReport.questionRate))/3
+    console.log(achieve)
+    return achieve
 }
 // const report = await IndividualReport.findAll({where:{completeDate:{[Op.between]:["2020-11-29","2020-12-02"]}}})

@@ -8,7 +8,6 @@ module.exports = {
         const {
             id
         } = req.decoded;
-        console.log(`id:${id}, authority:${authority}`)
         const {
             category,
             url,

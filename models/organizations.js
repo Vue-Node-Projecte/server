@@ -5,7 +5,7 @@ module.exports=(sequelize,DataTypes)=>{
             allowNull:false
         }
     },{
-        timestamp:true,
+        timestamps:false,
         underscored:true,
         freezeTableName:true
     })
