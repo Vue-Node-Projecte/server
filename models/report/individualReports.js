@@ -11,7 +11,7 @@ module.exports=(sequelize,DataTypes)=>{
             type:DataTypes.INTEGER,
             defaultValue:0,
             get:function(){
-                return (this.getDataValue('wordAnswerCnt')/this.getDataValue('wordCount')).toFixed(2)
+                return Number((this.getDataValue('wordAnswerCnt')/this.getDataValue('wordCount')).toFixed(2))
             },
         },
         wordCount:{//학습 단어 갯수
@@ -40,7 +40,7 @@ module.exports=(sequelize,DataTypes)=>{
             type:DataTypes.INTEGER,
             defaultValue:0,
             get:function(){
-                return (this.getDataValue('sentenceAnswerCnt')/this.getDataValue('sentenceCount')).toFixed(2)
+                return Number((this.getDataValue('sentenceAnswerCnt')/this.getDataValue('sentenceCount')).toFixed(2))
             }
         },
         sentenceCount:{//학습 문장 갯수
@@ -69,7 +69,7 @@ module.exports=(sequelize,DataTypes)=>{
             type:DataTypes.INTEGER,
             defaultValue:0,
             get:function(){
-                return (this.getDataValue('questionAnswerCnt')/this.getDataValue('questionCount')).toFixed(2)
+                return Number((this.getDataValue('questionAnswerCnt')/this.getDataValue('questionCount')).toFixed(2))
             }
         },
         questionCount:{//학습 문제 갯수

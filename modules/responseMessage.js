@@ -119,4 +119,6 @@ module.exports={
   REPORT_UPDATE_SENTENCE_SUCCESS:"문장 리포트 업데이트성공",
   REPORT_UPDATE_QUESTION_FAIL:"문제 리포트 업데이트실패",
   REPORT_UPDATE_QUESTION_SUCCESS:"문제 리포트 업데이트성공",
+  REPORT_PERIOD_FAIL:"기간내의 리포트 가져오기 실패",
+  REPORT_PERIOD_SUCCESS:"기간내의 리포트 가져오기 성공",
 }

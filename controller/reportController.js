@@ -95,6 +95,16 @@ module.exports = {
         }catch(err){
             errorReturn(err,res)
         }
+    },
+    getPeriodReport:async(req,res)=>{
+        const {start,end} = req.body
+        const {id} = req.decoded
+        try{
+            const periodReport = await reportService.getPeriodReport(id,start,end)
+            return res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.REPORT_PERIOD_SUCCESS,periodReport))
+        }catch(err){
+            errorReturn(err,res)
+        }
     }
 }
 

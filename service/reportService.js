@@ -141,6 +141,14 @@ module.exports={
             newError.name = "FailToUpdateHomeworkSubmit"
             throw newError
         }
+    },
+    getPeriodReport:async(userId,start,end)=>{
+        const individualReport = await IndividualReport.findAll({where:{completeDate:{[Op.between]:[`${start}`,`${end}`]},UserId:userId},attributes:['id','completeDate']})
+        const homeworkReport = await HomeworkReports.findAll({where:{completeDate:{[Op.between]:[`${start}`,`${end}`]},StudentAssignmentId:(await StudentAssignments.findOne({where:{UserId:userId}})).id},attributes:['id','completeDate']})
+        const report = {}
+        report.individualReport=individualReport
+        report.homeworkReport=homeworkReport
+        return report
     }
 }
 const checkComplete=async(homeworkReport,homeworkId)=>{
